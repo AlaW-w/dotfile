@@ -1,0 +1,288 @@
+# i3 config file by Levinit  https://github.com/levinit
+# see http://i3wm.org/docs/userguide.html for a complete reference!
+
+# Super key(mod4 =windows logo key/Command key)
+set $mod Mod4
+
+#===autostart parograms===
+#exec --no-startup-id xcompmgr &
+#exec --no-startup-id mate-power-manager
+#exec --no-startup-id nm-applet
+exec --no-startup-id clash > /tmp/clash.log &
+exec --no-startup-id fcitx5 &
+exec --no-startup-id autotiling &
+#exec --no-startup-id ibus
+#exec --no-startup-id megasync
+#exec --no-startup-id redshift
+#exec --no-startup-id blueman-applet
+#exec --no-startup-id ss-qt5
+
+#===programs shortcuts===
+
+# dmenu (a program launcher)
+bindsym $mod+d exec --no-startup-id exec rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/wofi/launcher.rasi
+
+
+# terminal
+bindsym $mod+Return exec --no-startup-id alacritty
+
+
+# browsers--firefox
+bindsym $mod+Shift+f exec firefox
+
+# printscreen--scrot(Print=PrtSc/PrintScreen)
+bindsym Print exec flameshot gui
+
+# GUI file manager -- thunar
+bindsym $mod+e exec --no-startup-id thunar
+
+# bar toggle, hide or show
+bindsym $mod+m bar mode toggle
+
+#===appearance===
+#---window style---
+
+# window gap
+gaps inner 8
+gaps outer 5
+smart_gaps on
+
+# new window
+new_window none
+new_float normal
+hide_edge_borders both
+
+# window colors
+#  class                 border   backgr.  text  indicator  child_border
+client.focused           #9aa5ce #364A82 #c0caf5 #9aa5ce   #9aa5ce
+client.focused_inactive  #16161d #16161d #c0caf5 #16161d   #16161d
+client.unfocused         #16161d #16161d #c0caf5 #16161d   #16161d
+client.urgent           #2f343a  #900000  #ffffff  #199475   #900000
+client.placeholder      #a2b4ba  #0c0c0c  #ffffff  #1793d0   #0c0c0c
+client.background       #82abba
+
+# popups
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+# float programs(find the programs'names in "/usr/share/applictions")
+for_window [class="mpv"] floating enable
+for_window [class="steam"] floating enable
+for_window [class="ark"] floating enable
+for_window [class="feh"] floating enable
+for_window [class="thunar"] floating enable
+for_window [class="vlc"] floating enable
+for_window [class="telegramdesktop"] floating enable
+
+#for_window [class=""] floating enable
+
+
+
+#---wallpaper---
+
+# static mode
+#exec --no-startup-id feh --bg-scale "~/Pictures/wallpapers/wallpaper.jpg"
+
+# random mode
+#exec --no-startup-id  ~/.config/i3/wallpaper.sh &
+
+# font
+font pango:JetBrains Mono 10
+
+#---bar---
+
+bar {
+#    status_command i3status -c ~/.config/i3/i3status.conf
+    status_command i3status-rs
+
+    position top
+    mode hide
+    workspace_buttons yes
+    #output eDP1
+    #tray_output primary
+    tray_padding 0
+
+    colors {
+    background #364A82
+    statusline #364A82
+    focused_workspace #9aa5ce #285de7 #dedfdg
+    active_workspace #9aa5ce #234567 #56ef67
+    inactive_workspace #636d72 #2d2d2d #dedede
+    urgent_workspace #16161d #900000 #d23d32
+    }
+
+#height 30
+}
+
+# external display device(eDP1 is the display device's name, use the command "xrandr" to see the display device name.)
+#exec --no-startup-id xrandr --output HDMI1 1920*1080 --right-of eDP1
+
+#===workspace control===
+
+# Workspace names
+#workspace "1:Arch" output eDP1
+#workspace "2:Web" output eDP1
+#workspace "3:Code" output eDP1
+#workspace "9:Mail" output eDP1
+
+# putting clients on specific workspaces
+
+
+#---switch workspace---
+
+# switch to near workspace
+bindsym $mod+Tab workspace next
+bindsym mod1+Tab workspace prev
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+
+#===window control===
+
+# fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# kill focused window($mod4=Alt)
+bindsym $mod+Shift+q kill
+
+# hide | show window(minus is "-" and plus is "+".)
+bindsym $mod+minus move scratchpad
+bindsym $mod+plus scratchpad show
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+c layout toggle split
+
+# change border style
+bindsym $mod+u border none
+bindsym $mod+n border normal
+bindsym $mod+o border 1pixel
+bindsym $mod+b border toggle
+
+#---window focus---
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# foucus follows mouse(cursor)
+focus_follows_mouse no
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# focus the parent container
+bindsym $mod+mod4+p focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+#---move window---
+
+# Use Mouse+$mod to drag a floating window
+floating_modifier $mod
+
+# move floating/tiling window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+#---split window---
+
+# horizontal orientation
+bindsym $mod+mod1+h split h
+
+# vertical orientation
+bindsym $mod+v split v
+
+
+#---resize window---
+bindsym $mod+r mode "resize"
+
+#resize shortcuts (also you can use the mouse for resizing)
+mode "resize" {
+    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow width 10 px or 10 ppt
+    #same bindings, but for the arrow keys
+    bindsym Left resize shrink width 2 px or 2 ppt
+    bindsym Down resize grow height 2 px or 2 ppt
+    bindsym Up resize shrink height 2 px or 2 ppt
+    bindsym Right resize grow width 2 px or 2 ppt
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+#===volume control===
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+#===backlight control===
+bindsym XF86MonBrightnessUp exec --no-startup-id exec light -A 2
+bindsym XF86MonBrightnessDown exec --no-startup-id exec light -U 2
+
+# screen off | sleep | shutdown(time unit: seconds)
+#exec --no-startup-id xset dpms 300 1357 6789
+#exec --no-startup-id xset dpms 365 1357
+
+#===manage i3===
+
+# reload the configuration file
+bindsym $mod+Shift+r reload
+
+# restart i3 inplace
+bindsym $mod+Shift+Ctrl+r restart
+
+# i3lock
+mode "i3lock: Return to lock/Escape to Cancel" {
+            bindsym Return mode "default" exec i3lock
+            bindsym Escape mode "default"
+    }
+
+bindsym Ctrl+mod1+l mode "i3lock: Return to lock/Escape to Cancel"
+
+
+# exit i3
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
